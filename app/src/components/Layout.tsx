@@ -13,10 +13,10 @@ function Logo({ dark = false }: { dark?: boolean }) {
       </span>
       <span className="leading-tight">
         <span className={`block text-xl font-black tracking-tight ${dark ? 'text-white' : 'text-ink'}`}>
-          دعوة <span className="gold-text">أونلاين</span>
+          <span className="gold-text">دعوتك</span>
         </span>
         <span className={`block text-[10px] font-medium ${dark ? 'text-gold-200/70' : 'text-gold-700/70'}`}>
-          DA3WA ONLINE · مناسبات تليق بكم
+          منصة الدعوات الفاخرة
         </span>
       </span>
     </Link>
@@ -78,7 +78,7 @@ function Header() {
 
           <div className="hidden lg:flex items-center gap-3">
             <Link
-              to="/contact"
+              to="/login"
               className="px-5 py-2.5 rounded-full text-sm font-bold text-ink/70 hover:text-ink transition-colors"
             >
               تسجيل الدخول
@@ -165,7 +165,7 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="text-gold-300 font-black mb-5">منصة دعوة أونلاين</h4>
+            <h4 className="text-gold-300 font-black mb-5">دعوتك</h4>
             <ul className="space-y-3">
               {footerLinks.platform.map((l) => (
                 <li key={l.label}>
@@ -192,7 +192,7 @@ function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/40">
-          <p>© 2026 دعوة أونلاين. جميع الحقوق محفوظة.</p>
+          <p>© 2026 دعوتك. جميع الحقوق محفوظة.</p>
           <p className="flex items-center gap-2">
             صُنع بحُب في السعودية
             <span className="text-gold-400">✦</span>

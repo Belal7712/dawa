@@ -226,7 +226,7 @@ export default function Demo() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="fixed top-5 right-5 z-40">
           <Link to="/" className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-gold-300/30 px-4 py-2 text-sm font-bold text-gold-100 hover:bg-white/20 transition-colors">
             <ArrowRight className="w-4 h-4" />
-            دعوة أونلاين
+            دعوتك
           </Link>
         </motion.div>
       )}
@@ -499,7 +499,7 @@ export default function Demo() {
                 {/* بطاقة الباركود */}
                 <div className="mt-6 rounded-3xl border-2 border-dashed border-gold-400 bg-cream p-6">
                   <QrCode className="mx-auto w-28 h-28 text-ink" strokeWidth={1.2} />
-                  <p className="mt-3 font-black text-ink tracking-[0.3em]" dir="ltr">DA3WA-2027-0847</p>
+                  <p className="mt-3 font-black text-ink tracking-[0.3em]" dir="ltr">DAWATAK-2027-0847</p>
                   <p className="text-xs text-ink/45 mt-1">أظهروا الباركود عند الباب — الدخول خلال ثوانٍ</p>
                 </div>
                 <button className="mt-6 inline-flex items-center gap-2 rounded-full border-2 border-gold-300 px-6 py-2.5 font-bold text-gold-700 hover:bg-gold-50 transition-colors">

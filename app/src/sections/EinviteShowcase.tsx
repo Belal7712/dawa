@@ -63,7 +63,7 @@ export default function EinviteShowcase() {
                 className="absolute -bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 rounded-full bg-white px-5 py-3 shadow-xl border border-gold-200 whitespace-nowrap"
               >
                 <Globe className="w-4 h-4 text-gold-600" />
-                <span className="text-sm font-bold text-ink/70" dir="ltr">da3wa.online/e/your-event</span>
+                <span className="text-sm font-bold text-ink/70" dir="ltr">dawatak.com/e/your-event</span>
               </motion.div>
             </div>
           </motion.div>

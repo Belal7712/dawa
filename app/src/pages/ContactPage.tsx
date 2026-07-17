@@ -14,7 +14,7 @@ const channels = [
   {
     icon: <Mail className="w-6 h-6" />,
     title: 'البريد الإلكتروني',
-    value: 'hello@da3wa.online',
+    value: 'hello@dawatak.com',
     desc: 'للاستفسارات والشراكات',
     tone: '#c9a24b',
   },
@@ -38,9 +38,24 @@ export default function ContactPage() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: '', phone: '', type: 'زواج', message: '' });
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // TEMPORARY: Log to console and mark as sent
+    // In production, integrate with Supabase support_tickets table or email service
+    console.log('[CONTACT FORM] New submission:', {
+      timestamp: new Date().toISOString(),
+      ...form,
+    });
+    
+    // Show success state
     setSent(true);
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setSent(false);
+      setForm({ name: '', phone: '', type: 'زواج', message: '' });
+    }, 3000);
   };
 
   return (
