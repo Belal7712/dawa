@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Mail, MapPin, Clock, Send, Check } from 'lucide-react';
+import { MessageCircle, Mail, MapPin, Clock, Send, Check, AlertCircle } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import { WHATSAPP_LINK } from '../data/content';
 
 const channels = [
@@ -36,26 +37,45 @@ const channels = [
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: '', phone: '', type: 'زواج', message: '' });
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // TEMPORARY: Log to console and mark as sent
-    // In production, integrate with Supabase support_tickets table or email service
-    console.log('[CONTACT FORM] New submission:', {
-      timestamp: new Date().toISOString(),
-      ...form,
-    });
-    
-    // Show success state
-    setSent(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setSent(false);
-      setForm({ name: '', phone: '', type: 'زواج', message: '' });
-    }, 3000);
+    setError('');
+    setLoading(true);
+
+    try {
+      // Insert into support_tickets table
+      const { error: dbError } = await supabase
+        .from('support_tickets')
+        .insert([
+          {
+            name: form.name,
+            phone_or_email: form.phone,
+            subject: form.type,
+            message: form.message,
+            status: 'new',
+          },
+        ]);
+
+      if (dbError) throw dbError;
+
+      // Show success state
+      setSent(true);
+
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setSent(false);
+        setForm({ name: '', phone: '', type: 'زواج', message: '' });
+      }, 3000);
+    } catch (err: any) {
+      console.error('[v0] Contact form error:', err);
+      setError(err.message || 'فشل إرسال الطلب. حاول مرة أخرى.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -112,6 +132,12 @@ export default function ContactPage() {
               className="lg:col-span-3 card-lux p-8 sm:p-10"
             >
               <AnimatePresence mode="wait">
+                {error && (
+                  <div className="mb-6 flex items-start gap-3 rounded-2xl bg-red-50 border border-red-200 p-4">
+                    <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 shrink-0" />
+                    <div className="text-sm text-red-700">{error}</div>
+                  </div>
+                )}
                 {sent ? (
                   <motion.div
                     key="done"
@@ -185,9 +211,18 @@ export default function ContactPage() {
                         className="w-full rounded-2xl border-2 border-gold-200 bg-cream/60 px-5 py-3.5 outline-none transition-all focus:border-gold-500 focus:bg-white focus:ring-4 focus:ring-gold-500/10 resize-none"
                       />
                     </div>
-                    <button type="submit" className="btn-gold w-full py-4 text-lg">
-                      <Send className="inline-block w-5 h-5 ml-2 -scale-x-100" />
-                      أرسل الطلب
+                    <button type="submit" disabled={loading} className="btn-gold w-full py-4 text-lg disabled:opacity-60 disabled:cursor-not-allowed">
+                      {loading ? (
+                        <>
+                          <span className="inline-block w-5 h-5 ml-2 animate-spin">⟳</span>
+                          جاري الإرسال...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="inline-block w-5 h-5 ml-2 -scale-x-100" />
+                          أرسل الطلب
+                        </>
+                      )}
                     </button>
                   </motion.form>
                 )}
