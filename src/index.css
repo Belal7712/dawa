@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 42 44% 97%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 40 56% 44%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 42 40% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 42 30% 93%;
+    --muted-foreground: 220 14% 42%;
+    --accent: 42 50% 92%;
+    --accent-foreground: 40 60% 32%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 26% 87%;
+    --input: 40 26% 85%;
+    --ring: 40 56% 44%;
+    --radius: 1rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Tajawal', 'Almarai', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #c9a24b;
+    color: #fff;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f3ede1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#d9b968, #a97f2c);
+    border-radius: 99px;
+    border: 2px solid #f3ede1;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: 'Amiri', serif;
+  }
+  .font-body {
+    font-family: 'Tajawal', sans-serif;
+  }
+
+  /* ===== الذهبي الفاخر ===== */
+  .gold-text {
+    background: linear-gradient(120deg, #8a6420 0%, #c9a24b 30%, #f0d98c 50%, #c9a24b 70%, #8a6420 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: gold-shine 6s linear infinite;
+  }
+  .gold-grad {
+    background: linear-gradient(135deg, #a97f2c 0%, #d4af5e 45%, #e8cd85 55%, #b38731 100%);
+  }
+  .gold-grad-soft {
+    background: linear-gradient(135deg, #f7ecc9, #eeddab);
+  }
+  .btn-gold {
+    @apply relative overflow-hidden text-white font-bold rounded-full transition-all duration-300;
+    background: linear-gradient(135deg, #a97f2c 0%, #cfa54e 50%, #a97f2c 100%);
+    background-size: 200% auto;
+    box-shadow: 0 10px 30px -8px rgba(169, 127, 44, 0.55), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .btn-gold:hover {
+    background-position: left center;
+    box-shadow: 0 16px 40px -10px rgba(169, 127, 44, 0.65), inset 0 1px 0 rgba(255,255,255,0.35);
+    transform: translateY(-2px);
+  }
+  .btn-gold::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -80%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: skewX(-20deg);
+    animation: shine-sweep 3.5s ease-in-out infinite;
+  }
+
+  .card-lux {
+    @apply bg-white rounded-3xl border border-[#ece2cd] transition-all duration-500;
+    box-shadow: 0 4px 24px -8px rgba(120, 90, 30, 0.08);
+  }
+  .card-lux:hover {
+    box-shadow: 0 24px 60px -16px rgba(120, 90, 30, 0.18);
+    transform: translateY(-6px);
+    border-color: #dcc78f;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-[#e3d3a8] bg-[#faf3df] px-4 py-1.5 text-sm font-bold text-[#8a6420];
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-black leading-[1.25] text-[#17223b];
+  }
+
+  .ornament-divider {
+    @apply flex items-center justify-center gap-3 text-[#c9a24b];
+  }
+
+  /* خلفية نقش عربي خفيف */
+  .pattern-bg {
+    background-image: radial-gradient(circle at 1px 1px, rgba(180, 140, 60, 0.14) 1px, transparent 0);
+    background-size: 26px 26px;
+  }
+  .glow-gold {
+    background: radial-gradient(ellipse at center, rgba(214, 175, 94, 0.22), transparent 65%);
+  }
+
+  /* ===== شريط شهادات متحرك ===== */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 60s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* ===== قلوب عائمة للدعوة ===== */
+  .float-heart {
+    position: absolute;
+    bottom: -40px;
+    animation: float-up linear infinite;
+    opacity: 0;
+  }
+
+  /* نجمة لامعة */
+  .sparkle {
+    animation: sparkle-twinkle 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes gold-shine {
+  to { background-position: 200% center; }
+}
+@keyframes shine-sweep {
+  0%, 60% { right: -80%; }
+  100% { right: 130%; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+@keyframes float-up {
+  0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+  15% { opacity: 0.85; }
+  85% { opacity: 0.5; }
+  100% { transform: translateY(-105vh) rotate(24deg) scale(1.1); opacity: 0; }
+}
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.75) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(20deg); }
+}
+@keyframes envelope-open {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-172deg); }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
+  70% { box-shadow: 0 0 0 18px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
