@@ -156,6 +156,10 @@ export default function DashboardHomePage() {
   const greetName = profile?.full_name?.trim() || user?.email || 'مرحباً';
 
   const loadDashboard = useCallback(async () => {
+    if (!user?.id) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -176,7 +180,7 @@ export default function DashboardHomePage() {
         )
       `,
       )
-      .eq('owner_id', user?.id)
+      .eq('owner_id', user.id)
       .order('created_at', { ascending: false });
 
     if (fetchError) {
@@ -193,7 +197,7 @@ export default function DashboardHomePage() {
     setRecent(computed.recent);
     setReminders(computed.reminders);
     setLoading(false);
-  }, []);
+  }, [user?.id]);
 
   useEffect(() => {
     void loadDashboard();

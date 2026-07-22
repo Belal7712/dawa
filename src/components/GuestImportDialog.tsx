@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { Loader2, Upload, Download, FileSpreadsheet, AlertCircle, X, Check } from 'lucide-react';
+import { Loader2, Upload, Download, FileSpreadsheet, AlertCircle, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/lib/supabase';
 import {

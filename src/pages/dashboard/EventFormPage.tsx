@@ -67,13 +67,18 @@ export default function EventFormPage() {
 
     let cancelled = false;
     void (async () => {
+      if (!user?.id) {
+        setLoadError('يجب تسجيل الدخول أولاً');
+        setLoading(false);
+        return;
+      }
       setLoading(true);
       setLoadError(null);
       const { data, error } = await supabase
         .from('events')
         .select('*')
         .eq('id', id)
-        .eq('owner_id', user?.id)
+        .eq('owner_id', user.id)
         .maybeSingle();
 
       if (cancelled) return;
@@ -105,7 +110,7 @@ export default function EventFormPage() {
     return () => {
       cancelled = true;
     };
-  }, [id, isEdit]);
+  }, [id, isEdit, user?.id]);
 
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -138,7 +143,7 @@ export default function EventFormPage() {
             event_type: isEventTypeValue(form.event_type) ? form.event_type : 'wedding',
           })
           .eq('id', id)
-          .eq('owner_id', user?.id);
+          .eq('owner_id', user.id);
 
         if (error) {
           toast.error(error.message || 'فشل تحديث المناسبة');

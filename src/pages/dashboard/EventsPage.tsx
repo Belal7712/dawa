@@ -56,12 +56,16 @@ export default function EventsPage() {
   const [deleting, setDeleting] = useState(false);
 
   const loadEvents = useCallback(async () => {
+    if (!user?.id) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
     const { data, error: fetchError } = await supabase
       .from('events')
       .select('*')
-      .eq('owner_id', user?.id)
+      .eq('owner_id', user.id)
       .order('created_at', { ascending: false });
 
     if (fetchError) {
@@ -71,7 +75,7 @@ export default function EventsPage() {
       setEvents(data ?? []);
     }
     setLoading(false);
-  }, []);
+  }, [user?.id]);
 
   useEffect(() => {
     void loadEvents();

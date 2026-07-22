@@ -226,14 +226,14 @@ export default function EventDetailPage() {
   const { settings: siteSettings } = useSiteSettings();
 
   const loadEventAndGuests = useCallback(async () => {
-    if (!id) return;
+    if (!id || !user?.id) return;
     setLoading(true);
 
     const { data: eventData, error: eventError } = await supabase
       .from('events')
       .select('*')
       .eq('id', id)
-      .eq('owner_id', user?.id)
+      .eq('owner_id', user.id)
       .maybeSingle();
 
     if (eventError || !eventData) {
@@ -276,7 +276,7 @@ export default function EventDetailPage() {
     }
 
     setLoading(false);
-  }, [id, navigate]);
+  }, [id, navigate, user?.id]);
 
   useEffect(() => {
     void loadEventAndGuests();
@@ -793,7 +793,7 @@ export default function EventDetailPage() {
                   تصدير القائمة
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" dir="rtl" className="w-44">
+              <DropdownMenuContent align="end" className="w-44 text-right [direction:rtl]">
                 <DropdownMenuItem
                   onClick={handleExport}
                   className="gap-2 font-bold cursor-pointer"

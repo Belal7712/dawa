@@ -540,7 +540,27 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_invite: {
+        Args: { p_token: string }
+        Returns: Json
+      }
+      submit_rsvp: {
+        Args: {
+          p_token: string
+          p_status: string
+          p_companions?: number
+        }
+        Returns: Json
+      }
+      submit_public_rsvp: {
+        Args: {
+          p_event_slug: string
+          p_guest_name: string
+          p_status?: string
+          p_companions?: number
+        }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
